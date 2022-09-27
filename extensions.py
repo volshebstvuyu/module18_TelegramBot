@@ -14,24 +14,20 @@ class Exchange:
             for key, value in currency.items():
                 if base in value:
                     base_item = key
-                else:
-                    raise APIException(f'Ошибка распознования валюты {base}')
         except KeyError:
-            raise ExchangeException(f'Нет такой валюты: {base}')
+            raise APIException(f'Нет такой валюты: {base}')
 
         try:
             for key, value in currency.items():
                 if quote in value:
                     quote_item = key
-                else:
-                    raise APIException(f'Ошибка распознования валюты {quote}')
         except KeyError:
-            raise ExchangeException(f'Нет такой валюты: {quote}')
+            raise APIException(f'Нет такой валюты: {quote}')
 
         try:
             amount = int(amount)
         except ValueError:
-            raise ExchangeException(f'Не смог обработать количество {amount}\nТы хрень понаписал, Dude')
+            raise APIException(f'Не смог обработать количество {amount}\nТы хрень понаписал, Dude')
 
         request = requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={base_item}&tsyms={quote_item}')
         total_base = float(json.loads(request.content)[quote_item]) * float(amount)

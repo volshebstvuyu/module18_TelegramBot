@@ -46,19 +46,24 @@ def handle_request(message: telebot.types.Message):
             bot.reply_to(message, 'Такая простая просьба и то слабоват =( Я просил 3 аргумента, никак не меньше!')
         else:
             base, quote, amount = values
-            total_quote = Exchange.get_price(base, quote, amount)
+
+        total_quote = Exchange.get_price(base, quote, amount)
+
+        for key, value in currency.items():
+            if base in value:
+                base = key
+            elif quote in value:
+                quote = key
+            else:
+                raise APIException('Валюты не распознаны')
+
+        text = f'Первод из {base} в {quote} состоялся:\n{amount} {base} = {total_quote} {quote}'
+
+        bot.send_message(message.chat.id, text)
     except Exception as e:
         if type(e) == APIException:
             bot.reply_to(message, f'Ошибка пользователя. Лузер\n\n{e}')
+            pass
         bot.reply_to(message, f'Что-то пошло не так.\n\n{e}')
-    for key, value in currency.items():
-        if base in value:
-            base = key
-        if quote in value:
-            quote = key
-
-    text = f'Первод из {base} в {quote} состоялся:\n{amount} {base} = {total_quote} {quote}'
-
-    bot.send_message(message.chat.id, text)
 
 bot.polling(none_stop=True)
