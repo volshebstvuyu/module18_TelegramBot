@@ -31,7 +31,7 @@ def handle_help_command(message):
 def handle_values_command(message):
     text = 'Доступные валюты:'
     for item in currency.keys():
-        text += f'\n\t\t5rdz\t{item}'
+        text += f'\n\t\t\t{item}'
     bot.reply_to(message, text)
 
 
