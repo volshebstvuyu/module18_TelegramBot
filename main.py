@@ -11,23 +11,27 @@ bot = telebot.TeleBot(TOKEN)
 # обработчик команд
 @bot.message_handler(commands=['start'])
 def handle_start_command(message):
-    text = f'Приветствую, {message.chat.first_name}. Я - бот. Моя задача получить от тебя команду (/start, /help, /values) или 3 параметра для исчисления конвертации\n' \
-           f'\nКонвертация происходит по следующим правиламвы мне 3 параметра через пробел в виде <исходная валюта> <валюта в которую надо перевести> <количество у.е.>, а я вам результат выдаю'
+    text = f'Приветствую, {message.chat.first_name}. Я - бот. Моя задача получить от тебя команду (/start, /help, /values) ' \
+           f'или 3 параметра для исчисления конвертации\n' \
+           f'\nКонвертация происходит по следующим правиламвы мне 3 параметра через пробел в виде ' \
+           f'<исходная валюта> <валюта в которую надо перевести> <количество у.е.>, а я вам результат выдаю'
     bot.reply_to(message, text)\
 
 
 @bot.message_handler(commands=['help'])
 def handle_help_command(message):
-    text = f'{message.chat.first_name}, конвертация валюты происходит по следующим правилам: вы мне 3 параметра через пробел в виде <исходная валюта> <валюта в которую надо перевести> <количество у.е.>, а я вам результат выдаю'
+    text = f'{message.chat.first_name}, конвертация валюты происходит по следующим правилам: ' \
+           f'вы мне 3 параметра через пробел в виде <исходная валюта> <валюта в которую надо перевести> <количество у.е.>, ' \
+           f'а я вам результат выдаю'
     bot.reply_to(message, text)
 
 
 # обработчик команды /values
 @bot.message_handler(commands=['values'])
-def handle_values(message):
+def handle_values_command(message):
     text = 'Доступные валюты:'
     for item in currency.keys():
-        text += f'\n\t\t{item}'
+        text += f'\n\t\t5rdz\t{item}'
     bot.reply_to(message, text)
 
 
