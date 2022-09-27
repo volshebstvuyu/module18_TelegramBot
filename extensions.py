@@ -14,6 +14,8 @@ class Exchange:
             for key, value in currency.items():
                 if base in value:
                     base_item = key
+                else:
+                    raise APIException(f'Ошибка распознования валюты {base}')
         except KeyError:
             raise ExchangeException(f'Нет такой валюты: {base}')
 
@@ -21,6 +23,8 @@ class Exchange:
             for key, value in currency.items():
                 if quote in value:
                     quote_item = key
+                else:
+                    raise APIException(f'Ошибка распознования валюты {quote}')
         except KeyError:
             raise ExchangeException(f'Нет такой валюты: {quote}')
 

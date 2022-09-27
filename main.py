@@ -1,10 +1,10 @@
 import telebot
-# from our_token import token
+from our_token import token
 from constants import *
 from extensions import *
 
-# TOKEN = token
-TOKEN = _token
+TOKEN = token
+# TOKEN = _token
 
 bot = telebot.TeleBot(TOKEN)
 
