@@ -52,10 +52,8 @@ def handle_request(message: telebot.types.Message):
         for key, value in currency.items():
             if base in value:
                 base = key
-            elif quote in value:
+            if quote in value:
                 quote = key
-            else:
-                raise APIException('Валюты не распознаны')
 
         text = f'Первод из {base} в {quote} состоялся:\n{amount} {base} = {total_quote} {quote}'
 
